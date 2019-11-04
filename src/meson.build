@@ -1,5 +1,5 @@
-subdir('encoder')
 subdir('bitStream')
+subdir('encoder')
 
 compress_exe = executable('compress.cpp.executable',
 sources:['compress.cpp'],
