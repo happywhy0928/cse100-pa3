@@ -8,7 +8,7 @@ project('pa2_huffman','cpp',
 subdir('src')
 
 gtest_proj = subproject('gtest')
-gtest_deo = gtest_proj.get_variable('gtest_main_dep')
+gtest_dep = gtest_proj.get_variable('gtest_main_dep')
 if not gtest_dep.found()    
    error('MESON_SKIP_TEST: gtest not installed.')
 endif
