@@ -25,16 +25,27 @@ void HCTree::build(const vector<unsigned int>& freqs) {
     HCNode* left = nullptr;
     HCNode* temp = nullptr;
 
+    if (sets.size() == 1) {
+        left = sets.top();
+        sets.pop();
+        parent = new HCNode((left->count), left->symbol, left, 0, 0);
+        left->p = parent;
+        sets.push(parent);
+    }
     while (sets.size() > 1) {
         left = sets.top();
         sets.pop();
 
         right = sets.top();
         sets.pop();
-
-        if (left->symbol > right->symbol) {
-            parent = new HCNode((left->count) + (right->count), left->symbol,
-                                left, right, 0);
+        if (left->count == right->count) {
+            if (left->symbol > right->symbol) {
+                parent = new HCNode((left->count) + (right->count),
+                                    left->symbol, left, right, 0);
+            } else {
+                parent = new HCNode((left->count) + (right->count),
+                                    right->symbol, left, right, 0);
+            }
         } else {
             parent = new HCNode((left->count) + (right->count), right->symbol,
                                 left, right, 0);
@@ -78,17 +89,21 @@ byte HCTree::decode(BitInputStream& in) const { return ' '; }
 byte HCTree::decode(istream& in) const {
     HCNode* curr = root;
     byte input;
-    while (curr->c0 != nullptr && curr->c1 != nullptr) {
+    while (1) {
         input = in.get();
-        if (input == '0') {
-            curr = curr->c0;
-        } else if (input == '1') {
-            curr = curr->c1;
-        } else {
+        if (in.eof()) {
             return 0;
         }
+        if (input == '0') {
+            curr = curr->c0;
+        } else {
+            curr = curr->c1;
+        }
+        if (curr->c0 != nullptr && curr->c1 != nullptr) {
+            return curr->symbol;
+        }
     }
-    return curr->symbol;
+    //   return curr->symbol;
 }
 
 void HCTree::deleteAll(HCNode* node) {
