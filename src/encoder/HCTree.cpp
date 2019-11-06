@@ -89,21 +89,17 @@ byte HCTree::decode(BitInputStream& in) const { return ' '; }
 byte HCTree::decode(istream& in) const {
     HCNode* curr = root;
     byte input;
-    while (1) {
+    while (curr->c0 != nullptr && curr->c1 != nullptr) {
         input = in.get();
-        if (in.eof()) {
-            return 0;
-        }
         if (input == '0') {
             curr = curr->c0;
-        } else {
+        } else if (input == '1') {
             curr = curr->c1;
-        }
-        if (curr->c0 != nullptr && curr->c1 != nullptr) {
-            return curr->symbol;
+        } else {
+            return 0;
         }
     }
-    //   return curr->symbol;
+    return curr->symbol;
 }
 
 void HCTree::deleteAll(HCNode* node) {
