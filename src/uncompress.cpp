@@ -68,7 +68,13 @@ int main(int argc, char* argv[]) {
     for (int i = 1; i < argc; i++) {
         string curr = argv[i];
         if (inputfile == "") {
-            inputfile = curr;
+            FileUtils check;
+            bool valid = check.isValidFile(curr);
+            if (valid == true) {
+                inputfile = curr;
+            } else {
+                return 1;
+            }
         } else {
             outputfile = curr;
         }

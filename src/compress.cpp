@@ -23,17 +23,18 @@ void pseudoCompression(string inFileName, string outFileName) {
     byte next;
     compressFile.open(outFileName);
     inputFile.open(inFileName);
-    inputFile.seekg(0, ios_base::end);
-    unsigned int curr = inputFile.tellg();
-
-    if (curr == 0) {
-        for (int index = 0; index < 256; index++) {
+    FileUtils check;
+    bool curr = check.isEmptyFile(inFileName);
+    if (curr == true) {
+        /*for (int index = 0; index < 256; index++) {
             freqs[index] = 0;
         }
         for (int index = 0; index < 256; index++) {
             temp = freqs[index];
             compressFile << temp << endl;
-        }
+        } */
+        inputFile.close();
+        compressFile.close();
     } else {
         int numberOfSymbols = 0;
         inputFile.seekg(0, ios::beg);
@@ -64,9 +65,9 @@ void pseudoCompression(string inFileName, string outFileName) {
             //   cout << next << endl;
             currTree.encode(next, compressFile);
         }
+        inputFile.close();
+        compressFile.close();
     }
-    inputFile.close();
-    compressFile.close();
 }
 
 /* TODO: True compression with bitwise i/o and small header (final) */
@@ -79,7 +80,13 @@ int main(int argc, char* argv[]) {
     for (int i = 1; i < argc; i++) {
         string curr = argv[i];
         if (inputfile == "") {
-            inputfile = curr;
+            FileUtils check;
+            bool valid = check.isValidFile(curr);
+            if (valid == true) {
+                inputfile = curr;
+            } else {
+                return 1;
+            }
         } else {
             outputfile = curr;
         }
