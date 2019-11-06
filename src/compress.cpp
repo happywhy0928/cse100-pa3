@@ -24,15 +24,8 @@ void pseudoCompression(string inFileName, string outFileName) {
     compressFile.open(outFileName);
     inputFile.open(inFileName);
     FileUtils check;
-    bool curr = check.isEmptyFile(inFileName);
-    if (curr == true) {
-        /*for (int index = 0; index < 256; index++) {
-            freqs[index] = 0;
-        }
-        for (int index = 0; index < 256; index++) {
-            temp = freqs[index];
-            compressFile << temp << endl;
-        } */
+    bool emptyFile = check.isEmptyFile(inFileName);
+    if (emptyFile == true) {
         inputFile.close();
         compressFile.close();
     } else {
