@@ -23,19 +23,9 @@ void pseudoDecompression(string inFileName, string outFileName) {
     byte read;
     compressFile.open(inFileName);
 
-    //  int i = 0;
+    int i = 0;
     int numElement = 0;
 
-    for (int i = 0; i < 256; i++) {
-        compressFile >> freq;
-        if (freq != 0) {
-            numElement++;
-            //   cout << freq << endl;
-        }
-        freqs[i] = freq;
-        freq = 0;
-    }
-    /*
     while (compressFile >> freq) {
         if (freq != 0) {
             numElement++;
@@ -46,38 +36,30 @@ void pseudoDecompression(string inFileName, string outFileName) {
         if (i > 255) {
             break;
         }
-    } */
+    }
     if (numElement == 0) {
         result.open(outFileName);
         result.close();
     } else {
         read = compressFile.get();
-        //  cout << read << endl;
         HCTree temp;
         temp.build(freqs);
         result.open(outFileName);
         while (1) {
             // read = compressFile.get();
+            //   if (compressFile.eof()) {
+            //       break;
+            //   }
             read = temp.decode(compressFile);
-            /* if (read == 0) {
-                 break;
-             }
-   */ if (compressFile.eof()) {
+            if (compressFile.eof()) {
                 break;
             }
 
-            // while (!compressFile.eof()) {
-            // read = temp.decode(compressFile);
-            //   cout << "FALSE" << endl;
-            // if (compressFile.eof()) {
-            //     break;
-            // }
-            result << (char)read;
+            result << read;
         }
-        //  }
-        result.close();
-        compressFile.close();
     }
+    result.close();
+    compressFile.close();
 }
 
 /* TODO: True decompression with bitwise i/o and small header (final) */

@@ -28,7 +28,8 @@ void HCTree::build(const vector<unsigned int>& freqs) {
     if (sets.size() == 1) {
         left = sets.top();
         sets.pop();
-        parent = new HCNode((left->count), left->symbol, left, 0, 0);
+        right = new HCNode(0, left->symbol, 0, 0, 0);
+        parent = new HCNode((left->count), left->symbol, left, right, 0);
         left->p = parent;
         sets.push(parent);
     }
@@ -96,7 +97,7 @@ byte HCTree::decode(istream& in) const {
         } else if (input == '1') {
             curr = curr->c1;
         } else {
-            return 0;
+            return -1;
         }
     }
     return curr->symbol;
