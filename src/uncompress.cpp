@@ -46,10 +46,6 @@ void pseudoDecompression(string inFileName, string outFileName) {
         temp.build(freqs);
         result.open(outFileName);
         while (1) {
-            // read = compressFile.get();
-            //   if (compressFile.eof()) {
-            //       break;
-            //   }
             read = temp.decode(compressFile);
             if (compressFile.eof()) {
                 break;
