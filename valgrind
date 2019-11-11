@@ -1,13 +1,44 @@
 Running main() from ../subprojects/googletest-release-1.8.1/googletest/src/gtest_main.cc
-[==========] Running 2 tests from 1 test case.
+[==========] Running 13 tests from 4 test cases.
 [----------] Global test environment set-up.
 [----------] 2 tests from SimpleHCTreeFixture
 [ RUN      ] SimpleHCTreeFixture.TEST_ENCODE
-[       OK ] SimpleHCTreeFixture.TEST_ENCODE (1 ms)
+[       OK ] SimpleHCTreeFixture.TEST_ENCODE (2 ms)
 [ RUN      ] SimpleHCTreeFixture.TEST_DECODE
 [       OK ] SimpleHCTreeFixture.TEST_DECODE (0 ms)
-[----------] 2 tests from SimpleHCTreeFixture (9 ms total)
+[----------] 2 tests from SimpleHCTreeFixture (14 ms total)
+
+[----------] 5 tests from ComplexHCTreeFixture
+[ RUN      ] ComplexHCTreeFixture.TEST_ENCODE1
+[       OK ] ComplexHCTreeFixture.TEST_ENCODE1 (0 ms)
+[ RUN      ] ComplexHCTreeFixture.TEST_ENCODE2
+[       OK ] ComplexHCTreeFixture.TEST_ENCODE2 (1 ms)
+[ RUN      ] ComplexHCTreeFixture.TEST_ENCODE3
+[       OK ] ComplexHCTreeFixture.TEST_ENCODE3 (0 ms)
+[ RUN      ] ComplexHCTreeFixture.TEST_DECODE1
+[       OK ] ComplexHCTreeFixture.TEST_DECODE1 (0 ms)
+[ RUN      ] ComplexHCTreeFixture.TEST_DECODE2
+[       OK ] ComplexHCTreeFixture.TEST_DECODE2 (0 ms)
+[----------] 5 tests from ComplexHCTreeFixture (9 ms total)
+
+[----------] 2 tests from SingleHCTreeFixture
+[ RUN      ] SingleHCTreeFixture.TEST_ENCODE4
+[       OK ] SingleHCTreeFixture.TEST_ENCODE4 (0 ms)
+[ RUN      ] SingleHCTreeFixture.TEST_DECODE3
+[       OK ] SingleHCTreeFixture.TEST_DECODE3 (0 ms)
+[----------] 2 tests from SingleHCTreeFixture (10 ms total)
+
+[----------] 4 tests from DoubleHCTreeFixture
+[ RUN      ] DoubleHCTreeFixture.TEST_ENCODE4
+[       OK ] DoubleHCTreeFixture.TEST_ENCODE4 (0 ms)
+[ RUN      ] DoubleHCTreeFixture.TEST_ENCODE5
+[       OK ] DoubleHCTreeFixture.TEST_ENCODE5 (0 ms)
+[ RUN      ] DoubleHCTreeFixture.TEST_DECODE4
+[       OK ] DoubleHCTreeFixture.TEST_DECODE4 (0 ms)
+[ RUN      ] DoubleHCTreeFixture.TEST_DECODE5
+[       OK ] DoubleHCTreeFixture.TEST_DECODE5 (0 ms)
+[----------] 4 tests from DoubleHCTreeFixture (6 ms total)
 
 [----------] Global test environment tear-down
-[==========] 2 tests from 1 test case ran. (19 ms total)
-[  PASSED  ] 2 tests.
+[==========] 13 tests from 4 test cases ran. (59 ms total)
+[  PASSED  ] 13 tests.
