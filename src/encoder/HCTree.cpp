@@ -62,7 +62,23 @@ void HCTree::build(const vector<unsigned int>& freqs) {
 }
 
 /* TODO */
-void HCTree::encode(byte symbol, BitOutputStream& out) const {}
+void HCTree::encode(byte symbol, BitOutputStream& out) const {
+    HCNode* curr = leaves[symbol];
+    stack<int> result;
+    while (curr != nullptr && curr->p != nullptr) {
+        if (curr->p->c0 == curr) {
+            result.push(0);
+        } else {
+            result.push(1);
+        }
+        curr = curr->p;
+    }
+    while (!result.empty()) {
+        int temp = result.top();
+        out.writeBit(temp);
+        result.pop();
+    }
+}
 
 /* TODO */
 void HCTree::encode(byte symbol, ostream& out) const {
@@ -84,7 +100,21 @@ void HCTree::encode(byte symbol, ostream& out) const {
 }
 
 /* TODO */
-byte HCTree::decode(BitInputStream& in) const { return ' '; }
+byte HCTree::decode(BitInputStream& in) const {
+    HCNode* curr = root;
+    int input;
+    while (curr->c0 != nullptr && curr->c1 != nullptr) {
+        input = in.readBit();
+        if (input == '0') {
+            curr = curr->c0;
+        } else if (input == '1') {
+            curr = curr->c1;
+        } else {
+            return -1;
+        }
+    }
+    return curr->symbol;
+}
 
 /* TODO */
 byte HCTree::decode(istream& in) const {
