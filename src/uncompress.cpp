@@ -38,26 +38,26 @@ void pseudoDecompression(string inFileName, string outFileName) {
             break;
         }
     }
-    cout << "12345" << endl;
+    // cout << "12345" << endl;
     if (numElement == 0) {
         result.open(outFileName);
         result.close();
-        cout << "1234" << endl;
+        //   cout << "1234" << endl;
     } else {
         read = compressFile.get();
         HCTree temp;
         temp.build(freqs);
         result.open(outFileName);
-        cout << "12" << endl;
+        //   cout << "12" << endl;
         while (1) {
             read = temp.decode(compressFile);
             if (compressFile.eof()) {
                 break;
             }
-
+            //    cout<<read <<endl;
             result << read;
         }
-        cout << "123" << endl;
+        //   cout << "123" << endl;
     }
     result.close();
     compressFile.close();
@@ -67,19 +67,21 @@ void pseudoDecompression(string inFileName, string outFileName) {
 void trueDecompression(string inFileName, string outFileName) {
     ifstream compressFile;
     ofstream result;
-    BitInputStream decodeFile(compressFile);
     vector<unsigned int> freqs(256, 0);
     int freq = 0;
     byte read;
     compressFile.open(inFileName);
+    BitInputStream decodeFile(compressFile);
     result.open(outFileName);
     int i = 0;
     int numElement = 0;
+    int total = 0;
     while (compressFile >> freq) {
         if (freq != 0) {
             numElement++;
         }
         freqs[i] = freq;
+        total += freq;
         freq = 0;
         i++;
         if (i > 255) {
@@ -92,12 +94,16 @@ void trueDecompression(string inFileName, string outFileName) {
         read = compressFile.get();
         HCTree temp;
         temp.build(freqs);
+        /*
         while (1) {
             read = temp.decode(decodeFile);
             if (compressFile.eof()) {
                 break;
             }
-            cout << read << endl;
+            result << read;
+        } */
+        for (int i = 0; i < total; i++) {
+            read = temp.decode(decodeFile);
             result << read;
         }
         result.close();
