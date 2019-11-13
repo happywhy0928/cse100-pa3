@@ -64,7 +64,7 @@ void HCTree::build(const vector<unsigned int>& freqs) {
 /* TODO */
 void HCTree::encode(byte symbol, BitOutputStream& out) const {
     HCNode* curr = leaves[symbol];
-    stack<int> result;
+    stack<bool> result;
     while (curr != nullptr && curr->p != nullptr) {
         if (curr->p->c0 == curr) {
             result.push(0);
@@ -102,15 +102,13 @@ void HCTree::encode(byte symbol, ostream& out) const {
 /* TODO */
 byte HCTree::decode(BitInputStream& in) const {
     HCNode* curr = root;
-    int input;
+    bool input;
     while (curr->c0 != nullptr && curr->c1 != nullptr) {
         input = in.readBit();
-        if (input == '0') {
+        if (input == 0) {
             curr = curr->c0;
-        } else if (input == '1') {
+        } else if (input == 1) {
             curr = curr->c1;
-        } else {
-            return -1;
         }
     }
     return curr->symbol;
